@@ -40,6 +40,15 @@ this.GetInfo();
     }
     );
   }
+  loadData(event) {
+    setTimeout(() => {
+
+      console.log(this.next)
+      //  this.getInfo()
+      this.GetPostsNext(this.next.query_params.page_number);
+      event.target.complete();
+    }, 3000);
+  }
   refresh(ev) {
     setTimeout(() => {
       ev.detail.complete();

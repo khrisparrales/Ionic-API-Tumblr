@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { RootObjectPosts,Post2,Next } from "../../interfaces/posts.interface";
+
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.page.html',
@@ -13,16 +14,25 @@ export class PostsPage implements OnInit {
     this.GetPosts();
 
   }
-
+  loadData(event){
+    setTimeout(() => {
+     
+      console.log(this.next)
+      //  this.getInfo()
+      this.GetPostsNext(this.next.query_params.page_number);
+      event.target.complete();
+    }, 3000);
+  }
   ngOnInit() {
-
+ 
   }
   refresh(ev) {
     setTimeout(() => {
-      ev.detail.complete();
+      ev.target.complete();
+      this.GetPostsNext(this.next.query_params.page_number);
       console.log(this.next)
     //  this.getInfo()
-      this.GetPostsNext(this.next.query_params.page_number);
+    
     }, 3000);
   }
   GetPosts() {

@@ -16,6 +16,16 @@ export class LikesPage implements OnInit {
     this.getInfo()
     this.getLikes();
   }
+  loadData(event) {
+    setTimeout(() => {
+
+      console.log(this.next)
+      //  this.getInfo()
+      this.getInfo()
+      this.getLikesNext(this.next.query_params.before);
+      event.target.complete();
+    }, 3000);
+  }
   refresh(ev) {
     setTimeout(() => {
       ev.detail.complete();

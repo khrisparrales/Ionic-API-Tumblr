@@ -8,6 +8,7 @@ import { PostsPageRoutingModule } from './posts-routing.module';
 
 import { PostsPage } from './posts.page';
 
+
 @NgModule({
   imports: [
     CommonModule,

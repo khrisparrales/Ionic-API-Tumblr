@@ -38,11 +38,7 @@
     </div>
 
     <div class="do">
-        <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
-            <ion-refresher-content>
 
-            </ion-refresher-content>
-        </ion-refresher>
         <ion-grid>
             <ion-row>
                 <ion-col size="6" *ngFor="let post of posts">
@@ -58,6 +54,10 @@
 
             </ion-row>
         </ion-grid>
+        <ion-infinite-scroll threshold="150px" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </div>
 
 
