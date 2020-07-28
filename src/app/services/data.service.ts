@@ -1,83 +1,57 @@
 import { Injectable } from '@angular/core';
+import { HttpClient,HttpParams } from "@angular/common/http";
 
-export interface Message {
-  fromName: string;
-  subject: string;
-  date: string;
-  id: number;
-  read: boolean;
-}
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { RespuestaTop } from '../interfaces/data.interface';
+import { RootObjectlikes,Links } from "../interfaces/likes.interface";
+import { RootObjectFollowing } from "../interfaces/following.interface";
+import { RootObjectPosts } from "../interfaces/posts.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  public messages: Message[] = [
-    {
-      fromName: 'Matt Chorsey',
-      subject: 'New event: Trip to Vegas',
-      date: '9:32 AM',
-      id: 0,
-      read: false
-    },
-    {
-      fromName: 'Lauren Ruthford',
-      subject: 'Long time no chat',
-      date: '6:12 AM',
-      id: 1,
-      read: false
-    },
-    {
-      fromName: 'Jordan Firth',
-      subject: 'Report Results',
-      date: '4:55 AM',
-      id: 2,
-      read: false
-    },
-    {
-      fromName: 'Bill Thomas',
-      subject: 'The situation',
-      date: 'Yesterday',
-      id: 3,
-      read: false
-    },
-    {
-      fromName: 'Joanne Pollan',
-      subject: 'Updated invitation: Swim lessons',
-      date: 'Yesterday',
-      id: 4,
-      read: false
-    },
-    {
-      fromName: 'Andrea Cornerston',
-      subject: 'Last minute ask',
-      date: 'Yesterday',
-      id: 5,
-      read: false
-    },
-    {
-      fromName: 'Moe Chamont',
-      subject: 'Family Calendar - Version 1',
-      date: 'Last Week',
-      id: 6,
-      read: false
-    },
-    {
-      fromName: 'Kelly Richardson',
-      subject: 'Placeholder Headhots',
-      date: 'Last Week',
-      id: 7,
-      read: false
-    }
-  ];
+ 
+  private baseUrl = 'https://api.tumblr.com/v2/';
+  valor:RespuestaTop[]=[];
+  constructor(private http: HttpClient) { }
+/**
+ * cargar 
 
-  constructor() { }
-
-  public getMessages(): Message[] {
-    return this.messages;
+  /**
+ * getinfo
+ */
+  public getinfo() {
+    return this.http.get<RespuestaTop>(this.baseUrl + 'blog/khrisparrales.tumblr.com/info?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4');
   }
+  /**
+   * getlikes
+   */
+  public getlikes() {
+    return this.http.get<RootObjectlikes>(this.baseUrl +'blog/khrisparrales.tumblr.com/likes?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4')
+  }
+  public getlikesNext(url:string) {
+    return this.http.get<RootObjectlikes>(this.baseUrl+"blog/khrisparrales.tumblr.com/likes?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4&before=" +url)
+  }
+/**
+ * getPosts
+ */
+public getPosts() {
+  return this.http.get<RootObjectPosts>(this.baseUrl+'blog/khrisparrales.tumblr.com/posts/photo?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4');
+}
+  public getPostsNext(url:string) {
+    return this.http.get<RootObjectPosts>(this.baseUrl + 'blog/khrisparrales.tumblr.com/posts/photo?api_key=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4&type=photo&offset=20&page_number=2' + url +'%22');
+  }
+  /**
+   * getfollowing
+   */
+   params = new HttpParams()
+    .append("Authorization", "OAuth oauth_consumer_key=\"kqPQvSH7zN2vaGoWeDj7760EuZ4WebL05Rq54HIep8GGeFeHBJ\",oauth_token=\"rrt0TZ1xkJsd77mvijGJActi7tVpjehLwufLCYoS7nccBFWQZU\",oauth_signature_method=\"HMAC-SHA1\",oauth_timestamp=\"1595634614\",oauth_nonce=\"k7ehafq0wOK\",oauth_version=\"1.0\",oauth_signature=\"RZkfATsyt2feWsq7f8MZGMSFb3c%3D\"")
+    .append('jsonp', 'JSONP_CALLBACK');
+   public getfollowing() {
 
-  public getMessageById(id: number): Message {
-    return this.messages[id];
+    return this.http.get<RootObjectFollowing>(this.baseUrl + 'blog/khrisparrales.tumblr.com/following')
+    
   }
 }

@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>info</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <div class="ce" *ngFor="let item of info">
+        <img class="circular--square" src={{avatar[2].url}}>
+        <h1>
+            {{item.title}}
+        </h1>
+        <h2>{{item.description}}</h2>
+        <ion-grid fixed>
+            <ion-row>
+                <ion-col size="4">
+                    <div class="cwe">
+                        Posts {{item.posts}}
+                    </div>
+
+                </ion-col>
+                <ion-col size="4">
+                    <div class="cwe">
+                        Likes {{item.likes}}
+                    </div>
+
+                </ion-col>
+                <ion-col size="4">
+                    <div class="cwe">
+                        Total Posts {{item.total_posts}}
+                    </div>
+
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </div>
+
+    <div class="do">
+        <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+            <ion-refresher-content>
+
+            </ion-refresher-content>
+        </ion-refresher>
+        <ion-grid>
+            <ion-row>
+                <ion-col size="6" *ngFor="let post of posts">
+                    <ng-template [ngIf]="post.type=='photo'">
+
+                        <div *ngFor="let photo of post.photos">
+                            <img width="200" height="180" src={{photo.original_size.url}}>
+                        </div>
+
+                    </ng-template>
+
+                </ion-col>
+
+            </ion-row>
+        </ion-grid>
+    </div>
+
+
+</ion-content>

@@ -5,15 +5,21 @@ import { FormsModule } from '@angular/forms';
 
 import { HomePage } from './home.page';
 import { HomePageRoutingModule } from './home-routing.module';
-import { MessageComponentModule } from '../message/message.module';
+
+import { ComponentsModule } from '../components/components.module';
+//import { Routes,RouterModule } from "@angular/router";
+
+// const route:Routes=[
+//   {path:'',component:HomePage,children:}
+// ]
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    MessageComponentModule,
-    HomePageRoutingModule
+    IonicModule,  
+    HomePageRoutingModule,
+    ComponentsModule
   ],
   declarations: [HomePage]
 })
