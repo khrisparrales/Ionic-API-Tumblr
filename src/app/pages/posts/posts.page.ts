@@ -19,7 +19,7 @@ export class PostsPage implements OnInit {
      
       console.log(this.next)
       //  this.getInfo()
-      this.GetPostsNext(this.next.query_params.page_number);
+      this.GetPostsNext(this.next.query_params.page_number, this.next.query_params.offset);
       event.target.complete();
     }, 3000);
   }
@@ -29,7 +29,7 @@ export class PostsPage implements OnInit {
   refresh(ev) {
     setTimeout(() => {
       ev.target.complete();
-      this.GetPostsNext(this.next.query_params.page_number);
+      this.GetPostsNext(this.next.query_params.page_number, this.next.query_params.offset);
       console.log(this.next)
     //  this.getInfo()
     
@@ -46,9 +46,10 @@ export class PostsPage implements OnInit {
     }
     );
   }
-  GetPostsNext(valor: string) {
-    this.data.getPostsNext(valor).subscribe(res => {
+  GetPostsNext(valor: string,valor2:string) {
+    this.data.getPostsNext(valor,valor2).subscribe(res => {
       this.posts.push(...res.response.posts)
+      this.next=res.response._links.next;
       console.log(res.response.posts)
       console.log("Funciona")
 

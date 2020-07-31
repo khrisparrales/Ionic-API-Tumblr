@@ -29,12 +29,12 @@ this.GetInfo();
     }
     );
   }
-  GetPostsNext(valor: string) {
-    this.data.getPostsNext(valor).subscribe(res => {
+  GetPostsNext(valor: string,valor2:string) {
+    this.data.getPostsNext(valor,valor2).subscribe(res => {
       this.posts.push(...res.response.posts)
       console.log(res.response.posts)
       console.log("Funciona")
-
+      this.next = res.response._links.next;
       //   this.valor = res.response.blog.name;
       // this.url = res.response.blog.avatar[2].url;
     }
@@ -45,7 +45,7 @@ this.GetInfo();
 
       console.log(this.next)
       //  this.getInfo()
-      this.GetPostsNext(this.next.query_params.page_number);
+      this.GetPostsNext(this.next.query_params.page_number, this.next.query_params.offset);
       event.target.complete();
     }, 3000);
   }
@@ -54,7 +54,7 @@ this.GetInfo();
       ev.detail.complete();
       console.log(this.next)
       //  this.getInfo()
-      this.GetPostsNext(this.next.query_params.page_number);
+      this.GetPostsNext(this.next.query_params.page_number, this.next.query_params.offset);
     }, 3000);
   }
   GetPosts() {
